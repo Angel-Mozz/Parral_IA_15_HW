@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruta Villista Nocturna · Parral</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --off-black: #111111;
+    --orange: #FF5C1A;
+    --orange-hot: #FF3D00;
+    --yellow: #FFD23F;
+    --cream: #FFF5E4;
+    --sand: #E8D5B0;
+    --brown: #3D1F00;
+    --white: #FFFFFF;
+    --gray: #888;
+    --card-bg: #161616;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 60px;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--orange);
+  }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity .2s, color .2s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange);
+    color: var(--white) !important;
+    opacity: 1 !important;
+    padding: 10px 24px !important;
+    border-radius: 2px;
+    transition: background .2s !important;
+  }
+
+  .nav-cta:hover { background: var(--orange-hot) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://magicaltowns.mx/wp-content/uploads/2023/08/hidalgo-del-parral-facebook-portada.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    transform: scale(1.05);
+    animation: heroZoom 12s ease-out forwards;
+    opacity: 1;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1.05); }
+    to   { transform: scale(1.0); }
+  }
+
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(10,10,10,0.2) 0%,
+      rgba(10,10,10,0.1) 40%,
+      rgba(10,10,10,0.85) 80%,
+      rgba(10,10,10,1) 100%
+    );
+  }
+
+  /* animated color blobs */
+  .hero-blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.25; pointer-events: none;
+  }
+  .blob-orange {
+    width: 600px; height: 600px;
+    background: var(--orange);
+    top: -100px; right: -100px;
+    animation: blobFloat 8s ease-in-out infinite alternate;
+  }
+  .blob-yellow {
+    width: 400px; height: 400px;
+    background: var(--yellow);
+    bottom: 100px; right: 200px;
+    animation: blobFloat 10s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes blobFloat {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(30px, -30px) scale(1.1); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 60px 80px;
+    max-width: 900px;
+    animation: fadeUp .9s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 15px; font-weight: 700; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: 20px;
+    animation: fadeUp .9s .1s ease both;
+  }
+
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 2px; background: var(--orange);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(72px, 10vw, 130px);
+    line-height: .9;
+    letter-spacing: 3px;
+    color: var(--white);
+    animation: fadeUp .9s .2s ease both;
+  }
+
+  .hero-title span {
+    color: var(--orange);
+    display: block;
+  }
+
+  .hero-sub {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--sand);
+    margin: 20px 0 36px;
+    animation: fadeUp .9s .3s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    animation: fadeUp .9s .4s ease both;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background .2s, transform .2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .btn-primary:hover { background: var(--orange-hot); transform: translateY(-2px); }
+
+  .btn-ghost {
+    color: var(--cream);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    opacity: 0.7;
+    transition: opacity .2s;
+  }
+
+  .btn-ghost:hover { opacity: 1; }
+
+  .btn-ghost::after {
+    content: '↓';
+    font-size: 18px;
+  }
+
+  /* Hero stats bar */
+  .hero-stats {
+    position: absolute; bottom: 0; right: 0;
+    display: flex;
+    background: rgba(22,22,22,0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    z-index: 3;
+    animation: fadeUp .9s .5s ease both;
+  }
+
+  .stat {
+    padding: 24px 40px;
+    border-left: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 36px;
+    color: var(--orange);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 100px 60px; }
+
+  .section-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--orange);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .section-tag::before {
+    content: ''; width: 24px; height: 2px; background: var(--orange);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(42px, 5vw, 72px);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .section-title em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--orange);
+  }
+
+  /* ─── GALLERY ─── */
+  #galeria {
+    padding-top: 80px;
+    background: var(--off-black);
+  }
+
+  .gallery-header {
+    max-width: 1200px; margin: 0 auto 48px;
+  }
+
+  .gallery-grid {
+    max-width: 1400px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 320px 240px;
+    gap: 8px;
+  }
+
+  .gallery-item {
+    overflow: hidden; position: relative;
+    background: #1a1a1a;
+  }
+
+  .gallery-item:first-child {
+    grid-row: 1 / 3;
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease;
+    filter: brightness(0.85) saturate(1.1);
+  }
+
+  .gallery-item:hover img { transform: scale(1.06); }
+
+  .gallery-item-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px 20px 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--cream); opacity: 0;
+    transition: opacity .3s;
+  }
+
+  .gallery-item:hover .gallery-item-label { opacity: 1; }
+
+  /* orange accent bar on hover */
+  .gallery-item::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; width: 0; height: 3px;
+    background: var(--orange);
+    transition: width .4s ease;
+  }
+  .gallery-item:hover::after { width: 100%; }
+
+  /* ─── RECORRIDO ─── */
+  #recorrido {
+    background: var(--black);
+    max-width: 1400px; margin: 0 auto;
+  }
+
+  .recorrido-layout {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 80px; align-items: start;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .recorrido-intro p {
+    color: var(--gray);
+    font-size: 16px; line-height: 1.7;
+    margin-top: 20px;
+  }
+
+  .recorrido-visual {
+    position: relative;
+  }
+
+  .stops {
+    display: flex; flex-direction: column; gap: 0;
+  }
+
+  .stop {
+    display: grid; grid-template-columns: 60px 1fr;
+    gap: 0 24px;
+    position: relative;
+  }
+
+  .stop-left {
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .stop-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px; color: var(--orange);
+    background: var(--black);
+    position: relative; z-index: 1;
+    flex-shrink: 0;
+    transition: background .3s, color .3s;
+  }
+
+  .stop:hover .stop-num {
+    background: var(--orange); color: var(--white);
+  }
+
+  .stop-line {
+    flex: 1; width: 2px;
+    background: linear-gradient(to bottom, var(--orange), rgba(255,92,26,0.1));
+    margin: 0;
+  }
+
+  .stop:last-child .stop-line { display: none; }
+
+  .stop-body {
+    padding: 6px 0 36px;
+  }
+
+  .stop-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 800;
+    color: var(--white);
+    margin-bottom: 4px;
+    transition: color .3s;
+  }
+
+  .stop:hover .stop-name { color: var(--orange); }
+
+  .stop-desc {
+    font-size: 13px; color: var(--gray); line-height: 1.6;
+  }
+
+  .stop-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: rgba(255,92,26,0.12);
+    padding: 3px 10px;
+    margin-top: 8px;
+    border-radius: 2px;
+  }
+
+  /* ─── PRECIOS ─── */
+  #precios {
+    background: var(--orange);
+    color: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #precios::before {
+    content: 'VILLISTA';
+    position: absolute;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 300px;
+    opacity: 0.07;
+    top: -40px; right: -40px;
+    color: var(--black);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .precios-layout {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .precios-left .section-tag { color: var(--brown); }
+  .precios-left .section-tag::before { background: var(--brown); }
+  .precios-left .section-title { color: var(--black); }
+  .precios-left .section-title em { color: var(--brown); }
+
+  .precios-left p {
+    font-size: 16px; line-height: 1.7;
+    color: rgba(0,0,0,0.7);
+    margin-top: 16px;
+  }
+
+  .precio-card {
+    background: var(--black);
+    color: var(--cream);
+    padding: 48px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+
+  .precio-amount {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 100px;
+    color: var(--orange);
+    line-height: 1;
+    letter-spacing: 2px;
+  }
+
+  .precio-unit {
+    font-size: 14px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 32px;
+  }
+
+  .precio-features {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .precio-features li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: var(--cream);
+  }
+
+  .precio-features li::before {
+    content: '✓';
+    width: 22px; height: 22px;
+    background: var(--orange);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .horario-chips {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .chip {
+    background: rgba(255,92,26,0.15);
+    border: 1px solid rgba(255,92,26,0.3);
+    color: var(--orange);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 2px;
+  }
+
+  /* ─── RESERVAR ─── */
+  #reservar {
+    background: var(--off-black);
+    text-align: center;
+  }
+
+  .reservar-inner {
+    max-width: 700px; margin: 0 auto;
+  }
+
+  .reservar-inner .section-title { font-size: 60px; }
+
+  .reservar-inner p {
+    color: var(--gray);
+    font-size: 16px; line-height: 1.7;
+    margin: 16px 0 40px;
+  }
+
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: #25D366;
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding: 20px 48px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: transform .2s, box-shadow .2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(37,211,102,0.3);
+  }
+
+  .whatsapp-icon {
+    width: 28px; height: 28px;
+  }
+
+  .reservar-note {
+    margin-top: 24px;
+    font-size: 12px; color: var(--gray);
+    letter-spacing: 1px;
+  }
+
+  /* Urgency strip */
+  .urgency {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,92,26,0.12);
+    border: 1px solid rgba(255,92,26,0.25);
+    color: var(--orange);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 10px 20px;
+    margin-bottom: 32px;
+    border-radius: 2px;
+  }
+
+  .urgency-dot {
+    width: 8px; height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px; letter-spacing: 3px;
+    color: var(--orange);
+  }
+
+  .footer-text {
+    font-size: 12px; color: var(--gray);
+    letter-spacing: 1px;
+  }
+
+  .footer-social {
+    display: flex; gap: 20px;
+  }
+
+  .footer-social a {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gray);
+    text-decoration: none; transition: color .2s;
+  }
+
+  .footer-social a:hover { color: var(--orange); }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* stagger children */
+  .stagger > * {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:.0s; }
+  .stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:.1s; }
+  .stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:.2s; }
+  .stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:.3s; }
+  .stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">RUTA VILLISTA</div>
+  <ul class="nav-links">
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#recorrido">Recorrido</a></li>
+    <li><a href="#precios">Precios</a></li>
+    <li><a href="#reservar" class="nav-cta">Reservar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-blob blob-orange"></div>
+  <div class="hero-blob blob-yellow"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Hidalgo del Parral · Chihuahua</div>
+    <h1 class="hero-title">
+      Ruta Villista
+      <span>Nocturna</span>
+    </h1>
+    <p class="hero-sub">"Una noche que no olvidarás"</p>
+    <div class="hero-actions">
+      <a href="#reservar" class="btn-primary">Reserva tu lugar</a>
+      <a href="#recorrido" class="btn-ghost">Ver recorrido</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Paradas históricas</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2h</div>
+      <div class="stat-label">De experiencia</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$150</div>
+      <div class="stat-label">Pesos por persona</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20</div>
+      <div class="stat-label">Cupo máximo</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="galeria">
+  <div class="gallery-header reveal">
+    <div class="section-tag">Galería</div>
+    <h2 class="section-title">Parral de <em>noche</em></h2>
+  </div>
+  <div class="gallery-grid stagger">
+    <div class="gallery-item">
+      <img src="https://claseturista.com.mx/wp-content/uploads/2023/11/CATEDRAL-PARRAL.jpg" alt="Parral centro histórico">
+      <div class="gallery-item-label">Centro histórico</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.UguFLixb66nCdP9hggRJowHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Museo Pancho Villa">
+      <div class="gallery-item-label">Museo Pancho Villa</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://magicaltowns.mx/wp-content/uploads/2023/08/hidalgo-del-parral-facebook-portada.jpg" alt="Arquitectura Parral">
+      <div class="gallery-item-label">Arquitectura colonial</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://th.bing.com/th/id/OIP.Fi0SBZRiP8eFrNktGh1swgHaE2?w=256&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="Parral Pueblo Mágico">
+      <div class="gallery-item-label">Pueblo Mágico</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://media.istockphoto.com/id/1474884090/photo/parral-chihuahua-streets-at-night.jpg?s=612x612&w=0&k=20&c=XclDcRmQfn-HJGnTU55ZIaDcGsCpvCMqPI9dZUJ307o=" alt="Parral noche">
+      <div class="gallery-item-label">Noches en Parral</div>
+    </div>
+  </div>
+</section>
+
+<!-- RECORRIDO -->
+<section id="recorrido">
+  <div class="recorrido-layout">
+    <div class="recorrido-intro reveal">
+      <div class="section-tag">El recorrido</div>
+      <h2 class="section-title">5 paradas.<br><em>Una historia.</em></h2>
+      <p>Recorre los sitios más icónicos de Hidalgo del Parral bajo la luz de la noche. Con narración dramatizada y música norteña de fondo, cada parada cobra vida de una manera que ningún libro puede replicar.</p>
+      <div class="horario-chips" style="margin-top: 28px;">
+        <div class="chip">Viernes</div>
+        <div class="chip">Sábado</div>
+        <div class="chip">8:00 PM</div>
+        <div class="chip">2 horas</div>
+      </div>
+    </div>
+
+    <div class="stops stagger">
+      <div class="stop">
+        <div class="stop-left">
+          <div class="stop-num">01</div>
+          <div class="stop-line"></div>
+        </div>
+        <div class="stop-body">
+          <div class="stop-name">Museo de Pancho Villa</div>
+          <div class="stop-desc">Punto de partida. La historia del Centauro del Norte en el lugar donde todo comenzó.</div>
+          <span class="stop-tag">Punto de salida</span>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-left">
+          <div class="stop-num">02</div>
+          <div class="stop-line"></div>
+        </div>
+        <div class="stop-body">
+          <div class="stop-name">Palacio Alvarado</div>
+          <div class="stop-desc">Arquitectura porfiriana con historias de poder, plata y revolución entretejidas en cada columna.</div>
+          <span class="stop-tag">Historia viva</span>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-left">
+          <div class="stop-num">03</div>
+          <div class="stop-line"></div>
+        </div>
+        <div class="stop-body">
+          <div class="stop-name">Mina La Prieta</div>
+          <div class="stop-desc">El corazón minero que forjó la riqueza y el espíritu de Parral. Una visita entre leyenda y realidad.</div>
+          <span class="stop-tag">Leyenda</span>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-left">
+          <div class="stop-num">04</div>
+          <div class="stop-line"></div>
+        </div>
+        <div class="stop-body">
+          <div class="stop-name">Barrio de Cuauhtémoc</div>
+          <div class="stop-desc">Las raíces más auténticas de Parral. Calles empedradas, murales y vida local que no encontrarás en guías turísticas.</div>
+          <span class="stop-tag">Raíces</span>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-left">
+          <div class="stop-num">05</div>
+          <div class="stop-line"></div>
+        </div>
+        <div class="stop-body">
+          <div class="stop-name">Mirador del Cerro</div>
+          <div class="stop-desc">El final épico. Parral iluminada de noche desde lo alto — el momento más fotografiable del recorrido.</div>
+          <span class="stop-tag">Fin épico · 📸</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios">
+  <div class="precios-layout">
+    <div class="precios-left reveal">
+      <div class="section-tag">Precio</div>
+      <h2 class="section-title">Lo que <em>incluye</em></h2>
+      <p>Una experiencia completa diseñada para jóvenes que quieren conocer la historia de Parral de una forma que nunca van a olvidar — y que van a querer compartir.</p>
+      <div class="horario-chips">
+        <div class="chip" style="background:rgba(0,0,0,0.12); border-color:rgba(0,0,0,0.2); color:var(--brown);">Viernes y Sábado</div>
+        <div class="chip" style="background:rgba(0,0,0,0.12); border-color:rgba(0,0,0,0.2); color:var(--brown);">8:00 PM</div>
+        <div class="chip" style="background:rgba(0,0,0,0.12); border-color:rgba(0,0,0,0.2); color:var(--brown);">Cupo: 20 personas</div>
+      </div>
+    </div>
+
+    <div class="precio-card reveal">
+      <div class="precio-amount">$150</div>
+      <div class="precio-unit">Pesos mexicanos · por persona</div>
+      <ul class="precio-features">
+        <li>Guía local especializado en historia revolucionaria</li>
+        <li>Narración dramatizada en los 5 puntos del recorrido</li>
+        <li>Música norteña en vivo de fondo</li>
+        <li>2 horas de experiencia inmersiva nocturna</li>
+        <li>Grupo exclusivo de máximo 20 personas</li>
+        <li>Spots fotografiables en cada parada</li>
+      </ul>
+      <a href="#reservar" class="btn-primary" style="display:inline-block;">Quiero reservar →</a>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVAR -->
+<section id="reservar">
+  <div class="reservar-inner reveal">
+    <div class="urgency">
+      <div class="urgency-dot"></div>
+      Cupo limitado · 20 personas por noche
+    </div>
+    <div class="section-tag" style="justify-content:center;">Reservaciones</div>
+    <h2 class="section-title">¿Listo para <em>la noche?</em></h2>
+    <p>Reserva tu lugar directo por WhatsApp. Solo escribe <strong style="color:var(--cream);">QUIERO IR</strong> y te confirmamos disponibilidad en minutos.</p>
+    <a href="https://wa.me/521XXXXXXXXXX?text=QUIERO%20IR%20a%20la%20Ruta%20Villista%20Nocturna" class="whatsapp-btn" target="_blank">
+      <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Reservar por WhatsApp
+    </a>
+    <p class="reservar-note">También puedes escribir directamente: <strong style="color:var(--cream);">QUIERO IR</strong> al número de reservaciones</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">RUTA VILLISTA NOCTURNA</div>
+  <div class="footer-text">Turismo Cultural Parral · H. Ayuntamiento de Hidalgo del Parral</div>
+  <div class="footer-social">
+    <a href="#">Instagram</a>
+    <a href="#">TikTok</a>
+    <a href="#">Facebook</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
